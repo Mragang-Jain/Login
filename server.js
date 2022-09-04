@@ -21,7 +21,7 @@ var testRoutes   = require('./routes/test');
 var configDB     = require('./config/database');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect('mongodb+srv://terrance:Inntechweb2020@cluster0.jlhpy.mongodb.net/finix', {useNewUrlParser:true}); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 

@@ -9,10 +9,15 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 router.post('/login', passport.authenticate('local-login', {
     successRedirect : '/auth/profile',
-    failureRedirect : 'auth/login'
+    failureRedirect : '/auth/fail'
 }));
+
+router.get('/fail', (req, res) => {
+    res.status(400).json({message:'Login Failed Invalid Username or password'});
+});
+
 router.get('/profile', isLoggedIn, (req, res) => {
-    res.status(200).json(req.user);
+    res.status(200).json({message:'Login Success' ,data:req.user});
 });
 router.get('/logout', isLoggedIn, (req, res) => {
     req.logout();
@@ -28,6 +33,6 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     res.status(400).json({
-        'message': 'access denied'
+        'message': 'access denied Please Login'
     });
 }
